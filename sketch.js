@@ -2,35 +2,35 @@ function preload() {
   // put preload code here
 }
 
-let elementSize = 50; // Dimensione fissa degli elementi
-let distance = 50; // Distanza tra i glifi
-let margin = 10; // Margine fisso per evitare che i glifi tocchino i bordi
+let elementSize = 50; // Dimensione elementi
+let distance = 50; // Distanza tra glifi
+let margin = 10; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  noLoop(); // Disegna solo una volta
+  noLoop(); 
 }
 
 function draw() {
-  background(255); // Sfondo bianco
+  background(255); 
   drawElements(); // Disegna gli elementi
 }
 
 function drawElements() {
-  // Calcola il numero di colonne e righe in base alla dimensione della finestra
-  let cols = floor((windowWidth - 2 * margin) / (elementSize + distance));
+  // Calcola numero massimo colonne e righe in base alla dimensione della finestra
+  let columns = floor((windowWidth - 2 * margin) / (elementSize + distance));
   let rows = floor((windowHeight - 2 * margin) / (elementSize + distance));
 
-  // Calcola l'offset per centrare la griglia nella finestra
-  let totalWidth = cols * (elementSize + distance) - distance; // Larghezza totale della griglia
-  let totalHeight = rows * (elementSize + distance) - distance; // Altezza totale della griglia
+  // Calcola largezza e altezza totale griglia
+  let totalWidth = columns * (elementSize + distance) - distance; 
+  let totalHeight = rows * (elementSize + distance) - distance; 
+  // Calcola offset orizzontale e verticale per centrare griglia nella finestra
+  let startX = (windowWidth - totalWidth) / 1.5; 
+  let startY = (windowHeight - totalHeight) / 1.5; 
 
-  let startX = (windowWidth - totalWidth) / 1.5; // Offset orizzontale
-  let startY = (windowHeight - totalHeight) / 1.5; // Offset verticale
-
-  // Ciclo attraverso righe e colonne
+  // Cicloche calcola coordinate x e y di ogni elemento 
   for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
+    for (let j = 0; j < columns; j++) {
       let x = startX + j * (elementSize + distance);
       let y = startY + i * (elementSize + distance);
 
@@ -40,17 +40,18 @@ function drawElements() {
   }
 }
 
+// Funzione che disegna ogni glifo in una posizione specifica
 function drawGlyph(x, y, size) {
-  push(); // Salva lo stato corrente
-  translate(x, y); // Trasla il sistema di coordinate
+  push(); // Salva lo stato corrente trasformazione
+  translate(x, y); // Trasla il sistema di coordinate al punti x, y
 
   // Applica una rotazione casuale
-  let angle = random(TWO_PI);
-  rotate(angle);
+  let angle = random(TWO_PI); // Genera angolo casuale tra 0 e 360°
+  rotate(angle); // Applica rotazione casuale generata ruotando contenuto del disegno intorno all'origine del sistema di coordinate che è stata traslata 
 
-  strokeWeight(2); // Spessore della linea
-  stroke(0); // Colore del tratto (nero)
-  noFill(); // Nessun riempimento per i glifi
+  strokeWeight(2); 
+  stroke(0); 
+  noFill(); 
 
   // Disegna un glifo composto da curve con più punti di controllo
   let numCurves = floor(random(4, 6)); // Numero di curve
@@ -58,20 +59,20 @@ function drawGlyph(x, y, size) {
     let startX = random(-size / 2, size / 2);
     let startY = random(-size / 2, size / 2);
 
-    // Aggiungi più punti di controllo per curve più complesse
+    // Più punti di controllo per curve più complesse
     let cp1X = startX + random(-size / 2, size / 2);
     let cp1Y = startY + random(-size / 2, size / 2);
     let cp2X = random(-size / 2, size / 2); // Secondo punto di controllo
-    let cp2Y = random(-size / 2, size / 2); // Secondo punto di controllo
+    let cp2Y = random(-size / 2, size / 2); 
     let endX = random(-size / 2, size / 2); // Punto finale
-    let endY = random(-size / 2, size / 2); // Punto finale
+    let endY = random(-size / 2, size / 2); 
 
-    // Disegna una curva
+    // Disegna una curva di Bézier 
     beginShape();
-    vertex(startX, startY);
-    bezierVertex(cp1X, cp1Y, cp2X, cp2Y, endX, endY); // Usa bezierVertex per curve più morbide
-    endShape();
+    vertex(startX, startY); // Imposta punto iniziale
+    bezierVertex(cp1X, cp1Y, cp2X, cp2Y, endX, endY); // Definisce curva con i punti di controllo e il punto finale
+    endShape(); // Chiude curva 
   }
 
-  pop(); // Ripristina lo stato precedente
+  pop(); // Ripristina lo stato precedente in modo che prossimo glifo non sia influenzato da trasformazioni 
 }
