@@ -27,6 +27,8 @@ function drawElements() {
   // Calcola offset orizzontale e verticale per centrare griglia nella finestra
   let startX = (windowWidth - totalWidth) / 1.5; 
   let startY = (windowHeight - totalHeight) / 1.5; 
+  // Utilizzo 1.5 e non 2 per calcolare posizione griglia poiché miglior risultato visivo nella disposizione elementi 
+  // -> centra griglia in modo equilibrato, mentre 2 tende a portare griglia troppo vicino al bordo della finestra 
 
   // Cicloche calcola coordinate x e y di ogni elemento 
   for (let i = 0; i < rows; i++) {
@@ -43,10 +45,14 @@ function drawElements() {
 // Funzione che disegna ogni glifo in una posizione specifica
 function drawGlyph(x, y, size) {
   push(); // Salva lo stato corrente trasformazione
-  translate(x, y); // Trasla il sistema di coordinate al punti x, y
+  // Utilizzo valore randomico per determinare di quanto spostare glifo rispetto alla sua posizione base x, y
+  let variationX = random(-5, 5); 
+  let variationY = random(-5, 5); 
+  translate(x + variationX, y + variationY); // Trasla sistema di coordinate
+  
 
   // Applica una rotazione casuale
-  let angle = random(TWO_PI); // Genera angolo casuale tra 0 e 360°
+  let angle = random(TWO_PI) * 1.5; // Genera angolo casuale tra 0 e 360° * 1.5
   rotate(angle); // Applica rotazione casuale generata ruotando contenuto del disegno intorno all'origine del sistema di coordinate che è stata traslata 
 
   strokeWeight(2); 
@@ -54,7 +60,7 @@ function drawGlyph(x, y, size) {
   noFill(); 
 
   // Disegna un glifo composto da curve con più punti di controllo
-  let numCurves = floor(random(4, 6)); // Numero di curve
+  let numCurves = floor(random(4, 7)); // Numero di curve
   for (let i = 0; i < numCurves; i++) { 
     let startX = random(-size / 2, size / 2);
     let startY = random(-size / 2, size / 2);
