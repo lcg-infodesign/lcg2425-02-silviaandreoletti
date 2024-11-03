@@ -16,6 +16,7 @@ function draw() {
   drawElements(); // Disegna gli elementi
 }
 
+// Funzione per calcolare la posizione e disegnare la griglia di elementi
 function drawElements() {
   // Calcola numero massimo colonne e righe in base alla dimensione della finestra
   let columns = floor((windowWidth - 2 * margin) / (elementSize + distance));
