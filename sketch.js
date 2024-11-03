@@ -52,7 +52,7 @@ function drawGlyph(x, y, size) {
   translate(x + variationX, y + variationY); // Trasla sistema di coordinate
   
 
-  // Applica una rotazione casuale
+  // Applica rotazione casuale
   let angle = random(TWO_PI) * 1.5; // Genera angolo casuale tra 0 e 360° * 1.5
   rotate(angle); // Applica rotazione casuale generata ruotando contenuto del disegno intorno all'origine del sistema di coordinate che è stata traslata 
 
