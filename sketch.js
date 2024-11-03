@@ -60,13 +60,13 @@ function drawGlyph(x, y, size) {
   stroke(0); 
   noFill(); 
 
-  // Disegna un glifo composto da curve con più punti di controllo
+  // Disegna un glifo composto da curve con diversi punti di controllo
   let numCurves = floor(random(4, 7)); // Numero di curve
   for (let i = 0; i < numCurves; i++) { 
     let startX = random(-size / 2, size / 2);
     let startY = random(-size / 2, size / 2);
 
-    // Più punti di controllo per curve più complesse
+    // Punti di controllo 
     let cp1X = startX + random(-size / 2, size / 2);
     let cp1Y = startY + random(-size / 2, size / 2);
     let cp2X = random(-size / 2, size / 2); // Secondo punto di controllo
